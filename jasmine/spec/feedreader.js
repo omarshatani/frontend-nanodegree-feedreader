@@ -55,11 +55,15 @@ $(function() {
 
     /* TODO: Write a new test suite named "The menu" */
     describe('The menu', function (){
-        var icon = document.querySelector('.icon-list');
+        // Add a spyOnEvent
+        let spyEvent, 
+            menu;
 
         beforeEach(function() {
-            icon.addEventListener('click', done());
+            //
+            spyEvent = spyOnEvent('.icon-list', 'click');
         });
+
         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
@@ -75,8 +79,20 @@ $(function() {
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
-         it('changes visibility when clicked', function (done) {
-            expect('click').toHaveBeenTriggeredOn('icon');
+        it('the menu changes visibility when the menu icon is clicked', function() {
+            //
+            $('.icon-list').trigger("click");
+            expect('click').toHaveBeenTriggeredOn('.icon-list');
+            expect(spyEvent).toHaveBeenTriggered();
+            menu = $('body').attr('class'); // assign the new class
+            expect(menu).toBe('');
+
+            // 
+            $('.icon-list').trigger("click");
+            expect('click').toHaveBeenTriggeredOn('.icon-list');
+            expect(spyEvent).toHaveBeenTriggered();
+            menu = $('body').attr('class'); // update the new class
+            expect(menu).toBe('menu-hidden');
         });
 
     });
