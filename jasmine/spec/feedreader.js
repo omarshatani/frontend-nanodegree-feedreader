@@ -78,23 +78,21 @@ $(function() {
          * new feed selection
         */
         let entryA, entryB;
-        /* Here we load entry 0 and 1, and assign their feeds
-         * to entryA and entryB respectively.
+        /* Here we load entry 0 and 1, and assign their first feed 
+         * text content to entryA and entryB respectively.
         */
         beforeEach(function (done) {
             loadFeed(0, function () {
-                entryA = document.querySelectorAll('.entry');
-                console.log(entryA);
+                entryA = document.querySelector('.entry').innerText;
             });
             loadFeed(1, function () {
-                entryB = document.querySelectorAll('.entry');
-                console.log(entryB);
+                entryB = document.querySelector('.entry').innerText;
                 done();
             });
         });
         // Checks if the content of the two feed are actually different
         it('content changes after feed loaded', function (done) {
-            expect(entryA).not.toEqual(entryB);
+            expect(entryA !== entryB).toBeTruthy();
             done();
         });
     });
