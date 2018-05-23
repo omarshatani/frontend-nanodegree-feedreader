@@ -90,6 +90,10 @@ $(function() {
                 done();
             });
         });
+        // Loads default feed
+        afterEach(function () {
+            loadFeed(0);
+        })
         // Checks if the content of the two feed are actually different
         it('content changes after feed loaded', function (done) {
             expect(entryA !== entryB).toBeTruthy();
