@@ -10,7 +10,7 @@ To get started, user can check the entries by clicking the hamburger menu on the
 
 The application logic is contained in the [app.js](js/app.js) file. Editing this file may stop the application from running, so be careful!
 
-All the tests of the application can be found in the [feedreader.js](spec/feedreader.js) file.
+All the tests run by Jasmine can be found in the [feedreader.js](spec/feedreader.js) file.
 
 ## Code dependencies
 
