@@ -54,22 +54,14 @@ $(function() {
 
 
     /* TODO: Write a new test suite named "The menu" */
-    describe('The menu', function (){
-        // Add a spyOnEvent
-        let spyEvent, 
-            menu;
-        beforeEach(function() {
-            //
-            spyEvent = spyOnEvent('.icon-list', 'click');
-        });
-
+    describe('The menu', function () {
+        const body = document.querySelector('body');
         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
         it('is hidden', function () {
-            const body = document.querySelector('body');
             expect(body.classList.value).toBe('menu-hidden');
         });
 
@@ -78,26 +70,19 @@ $(function() {
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
-        it('the menu changes visibility when the menu icon is clicked', function() {
-            //
-            $('.icon-list').trigger("click");
-            expect('click').toHaveBeenTriggeredOn('.icon-list');
-            expect(spyEvent).toHaveBeenTriggered();
-            menu = $('body').attr('class'); // assign the new class
-            expect(menu).toBe('');
-
-            // 
-            $('.icon-list').trigger("click");
-            expect('click').toHaveBeenTriggeredOn('.icon-list');
-            expect(spyEvent).toHaveBeenTriggered();
-            menu = $('body').attr('class'); // update the new class
-            expect(menu).toBe('menu-hidden');
+        it('changes visibility when the menu icon is clicked', function() {
+            const iconMenu = document.querySelector('.icon-list');
+            iconMenu.click();
+            expect(body.classList.value).not.toBe('menu-hidden');
+            iconMenu.click();
+            expect(body.classList.value).toBe('menu-hidden');
         });
 
     });
 
     /* TODO: Write a new test suite named "Initial Entries" */
     describe('Initial Entries', function () {
+        let feeds = [];
         /* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
@@ -106,22 +91,43 @@ $(function() {
          */
         beforeEach(function (done) {
             loadFeed(0, function () {
+                let entries = document.querySelectorAll('.entry');
+                for (entry of entries) {
+                    feeds.push(entry);
+                }
                 done();
             });
         });
 
          it('at least a single entry within the feed container', function (done) {
-            expect(allFeeds.length).not.toBe(0);
+            expect(feeds.length).toBeGreaterThan(0);
             done();
          });
     });
 
     /* TODO: Write a new test suite named "New Feed Selection" */
     describe('New Feed Selection', function () {
+        let entryA, entryB;
+
+        beforeEach(function (done) {
+            loadFeed(0, function () {
+                entryA = document.querySelectorAll('.entry');
+                console.log(entryA);
+            });
+            loadFeed(1, function () {
+                entryB = document.querySelectorAll('.entry');
+                console.log(entryB);
+                done();
+            });
+        });
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+        it('content changes after feed loaded', function (done) {
+            expect(entryA).not.toEqual(entryB);
+            done();
+        });
 
     });
         
