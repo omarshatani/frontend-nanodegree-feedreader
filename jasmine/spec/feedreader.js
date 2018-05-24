@@ -33,18 +33,17 @@ $(function() {
     });
     // Menu Test Suite
     describe('The menu', function () {
-        const body = document.querySelector('body');
         // Checks if the menu is hidden initially
         it('is hidden', function () {
-            expect(body.classList.value).toBe('menu-hidden');
+            expect($('body').hasClass('menu-hidden')).toBeTruthy();
         });
         // Checks if the menu becomes hidden/visible on click
         it('changes visibility when the menu icon is clicked', function() {
             const iconMenu = document.querySelector('.icon-list');
             iconMenu.click();
-            expect(body.classList.value).not.toBe('menu-hidden');
+            expect($('body').hasClass('menu-hidden')).toBeFalsy();
             iconMenu.click();
-            expect(body.classList.value).toBe('menu-hidden');
+            expect($('body').hasClass('menu-hidden')).toBeTruthy();
         });
     });
     // Initial Entries Test Suite
@@ -58,7 +57,7 @@ $(function() {
         */
         beforeEach(function (done) {
             loadFeed(0, function () {
-                let entries = document.querySelectorAll('.entry');
+                let entries = document.querySelector('.feed').querySelectorAll('.entry');
                 for (entry of entries) {
                     feeds.push(entry);
                 }
@@ -84,10 +83,10 @@ $(function() {
         beforeEach(function (done) {
             loadFeed(0, function () {
                 entryA = document.querySelector('.entry').innerText;
-            });
-            loadFeed(1, function () {
-                entryB = document.querySelector('.entry').innerText;
-                done();
+                loadFeed(1, function () {
+                    entryB = document.querySelector('.entry').innerText;
+                    done();
+                });
             });
         });
         // Loads default feed
