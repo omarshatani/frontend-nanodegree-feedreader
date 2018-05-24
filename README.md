@@ -5,6 +5,7 @@
 ## How to run 
 
 User can run the application on its own `localhost` web server by opening `index.html` on the browser. 
+
 To know more about setting up a local web server, [here's](https://1stwebdesigner.com/local-web-server/) a step by step guide. 
 
 ## How to use
